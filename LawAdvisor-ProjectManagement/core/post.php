@@ -160,16 +160,14 @@ class Post{
 	public function moveTask(){
 		//move query
 		//can update more than 50 with numbers of move to monitor
-		//$query = 'UPDATE '.$this->table.' SET deadline = :deadline, movecount = movecount+1, taskorder = :taskorder
-		//WHERE rowstamp = :rowstamp';
 		$query = 'CALL moveTasks(:rowstamp,:moveTo,:deadline);';
 		//prepare statement
 		$stmt = $this->conn->prepare($query);
 
 		//clean
 		$this->rowstamp 	= htmlspecialchars(strip_tags($this->rowstamp));
-		$this->deadline 	= htmlspecialchars(strip_tags($this->deadline));
 		$this->moveTo 		= htmlspecialchars(strip_tags($this->moveTo));
+		$this->deadline 	= htmlspecialchars(strip_tags($this->deadline));
 
 		//binding parameters
 		$stmt->bindParam(':rowstamp',$this->rowstamp);
